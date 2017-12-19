@@ -47,6 +47,10 @@ setup(
     entry_points={
         'bloks': [
             'attachment=anyblok_attachment.bloks.attachment:AttachmentBlok',
+            'report=anyblok_attachment.bloks.report:ReportBlok',
+            'wkhtml2pdf=anyblok_attachment.bloks.wkhtml2pdf:WkHtml2PdfBlok',
+            'report-format=anyblok_attachment.bloks.format:ReportBlok',
+            'report-jinja=anyblok_attachment.bloks.jinja:ReportBlok',
         ],
     },
     include_package_data=True,
