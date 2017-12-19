@@ -10,7 +10,10 @@ Welcome to AnyBlok / Attachment's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-
+   FRONT.rst
+   BLOKS.rst
+   CHANGES.rst
+   LICENSE.rst
 
 Indices and tables
 ==================
