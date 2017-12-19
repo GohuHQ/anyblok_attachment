@@ -18,15 +18,15 @@ with open(os.path.join(here, 'README.rst'), 'r',
           encoding='utf-8') as readme_file:
     readme = readme_file.read()
 
-# with open(
-#     os.path.join(here, 'doc', 'CHANGES.rst'), 'r', encoding='utf-8'
-# ) as change:
-#     CHANGES = change.read()
-#
-# with open(
-#     os.path.join(here, 'doc', 'FRONT.rst'), 'r', encoding='utf-8'
-# ) as front:
-#     FRONT = front.read()
+with open(
+    os.path.join(here, 'doc', 'CHANGES.rst'), 'r', encoding='utf-8'
+) as change:
+    CHANGES = change.read()
+
+with open(
+    os.path.join(here, 'doc', 'FRONT.rst'), 'r', encoding='utf-8'
+) as front:
+    FRONT = front.read()
 
 anyblok_init = [
 ]
@@ -39,7 +39,7 @@ setup(
     name='anyblok_attachment',
     version=version,
     description="test simple usecase between anyblok and dramatiq",
-    long_description=readme,  # + '\n' + FRONT + '\n' + CHANGES,
+    long_description=readme + '\n' + FRONT + '\n' + CHANGES,
     author="jssuzanne",
     author_email='jssuzanne@anybox.fr',
     url="http://docs.anyblok-attachment.anyblok.org/%s" % version,

@@ -2,6 +2,7 @@ language: python
 sudo: false
 
 python:
+  - "3.3"
   - "3.4"
   - "3.5"
   - "3.6"
@@ -42,6 +43,9 @@ script:
   - flake8 anyblok_attachment
   - psql -c 'create database travis_ci_test;' -U postgres
   - nosetests anyblok_attachment/tests -v -s --with-coverage --cover-package=anyblok_attachment
+  - psql -c 'drop database travis_ci_test;' -U postgres
+  - anyblok_createdb --install-all-bloks
+  - nosetests anyblok/bloks --with-anyblok-bloks -v -s --with-coverage --cover-package=anyblok_attachment
   
 after_success:
   coveralls
