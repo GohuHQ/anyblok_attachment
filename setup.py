@@ -46,6 +46,7 @@ setup(
     packages=find_packages(),
     entry_points={
         'bloks': [
+            'attachment=anyblok_attachment.bloks.attachment:AttachmentBlok',
         ],
     },
     include_package_data=True,

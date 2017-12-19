@@ -45,7 +45,7 @@ script:
   - nosetests anyblok_attachment/tests -v -s --with-coverage --cover-package=anyblok_attachment
   - psql -c 'drop database travis_ci_test;' -U postgres
   - anyblok_createdb --install-all-bloks
-  - nosetests anyblok/bloks --with-anyblok-bloks -v -s --with-coverage --cover-package=anyblok_attachment
+  - nosetests anyblok_attachment/bloks --with-anyblok-bloks -v -s --with-coverage --cover-package=anyblok_attachment
   
 after_success:
   coveralls

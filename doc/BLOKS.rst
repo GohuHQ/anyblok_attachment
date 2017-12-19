@@ -10,3 +10,16 @@
 
 Bloks
 =====
+
+Blok attachment
+---------------
+
+.. automodule:: anyblok_attachment.bloks.attachment
+.. autoclass:: AttachmentBlok
+    :members:
+    :undoc-members:
+    :show-inheritance:
+    :noindex:
+
+.. include:: ../anyblok_attachment/bloks/attachment/README.rst
+.. include:: ../anyblok_attachment/bloks/attachment/CODE.rst
