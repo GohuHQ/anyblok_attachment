@@ -18,7 +18,7 @@ API doc
     :show-inheritance:
     :noindex:
 
-**Documment**
+**Documments**
 
 .. automodule:: anyblok_attachment.bloks.attachment.document
 
@@ -35,4 +35,14 @@ API doc
 .. autoanyblok-declaration:: History
     :members:
     :show-inheritance:
+    :noindex:
+
+**Exceptions**
+
+.. automodule:: anyblok_attachment.bloks.attachment.exceptions
+
+.. autoexception:: NoFileException
+    :noindex:
+
+.. autoexception:: ProtectedFieldException
     :noindex:
