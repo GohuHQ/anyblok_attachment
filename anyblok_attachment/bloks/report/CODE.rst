@@ -9,7 +9,37 @@
 API doc
 ~~~~~~~
 
-**Documment**
+**Common**
+
+.. automodule:: anyblok_attachment.bloks.report.common
+
+.. autofunction:: format_path
+    :noindex:
+
+**Parser**
+
+.. automodule:: anyblok_attachment.bloks.report.parser
+
+.. autoanyblok-declaration:: Parser
+    :members:
+    :show-inheritance:
+    :noindex:
+
+
+**Template**
+
+.. automodule:: anyblok_attachment.bloks.report.template
+
+.. autoanyblok-declaration:: Template
+    :members:
+    :show-inheritance:
+    :noindex:
+
+.. autoanyblok-declaration:: AttachmentTemplateType
+    :members:
+    :show-inheritance:
+    :noindex:
+**Document**
 
 .. automodule:: anyblok_attachment.bloks.report.document
 
@@ -23,11 +53,12 @@ API doc
     :show-inheritance:
     :noindex:
 
-**Template**
+**Exceptions**
 
-.. automodule:: anyblok_attachment.bloks.report.template
+.. automodule:: anyblok_attachment.bloks.report.exceptions
 
-.. autoanyblok-declaration:: Template
-    :members:
-    :show-inheritance:
+.. autoexcepion:: PathException:
+    :noindex:
+
+.. autoexcepion:: RenderException:
     :noindex:
