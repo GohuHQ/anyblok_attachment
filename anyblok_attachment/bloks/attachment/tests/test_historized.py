@@ -34,13 +34,7 @@ class TestHistorized(BlokTestCase):
     def test_delete(self):
         file_ = urandom(100)
         document = self.registry.Attachment.Document.insert(file=file_)
-        print(document.version)
         document.historize_a_copy()
-        print(document.version)
-        print(document.attachment_document_uuid)
-        print(document.attachment_document_version)
-        print(document.previous_version)
-        print(self.registry.Attachment.Document.query().all().previous_version)
         with self.assertRaises(ForbidDeleteException):
             document.previous_version.delete()
             self.registry.flush()

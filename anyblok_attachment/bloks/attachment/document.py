@@ -9,10 +9,9 @@ from anyblok.declarations import Declarations
 from anyblok.column import (
     UUID, String, DateTime, Json, Integer, LargeBinary, Selection
 )
-from anyblok.relationship import One2One
 from anyblok.field import Function
 from datetime import datetime
-from sqlalchemy import ForeignKeyConstraint, insert, update, select
+from sqlalchemy import insert, select
 from sqlalchemy.orm.session import object_state
 from anyblok.common import anyblok_column_prefix
 from uuid import uuid1
@@ -34,7 +33,7 @@ class Document:
     version = String(primary_key=True, nullable=False)
 
     created_at = DateTime(default=datetime.now, nullable=False)
-    # historied_at = DateTime()
+    historied_at = DateTime()
 
     data = Json(default=dict)
 
@@ -48,8 +47,10 @@ class Document:
     type = Selection(selections={'latest': 'Latest', 'history': 'History'},
                      nullable=False)
 
-    previous_version = One2One(model='Model.Attachment.Document',
-                               backref="next_version")
+    previous_doc_uuid = UUID()
+    previous_doc_version = String()
+    previous_version = Function(fget="get_previous_version")
+    next_version = Function(fget="get_next_version")
     previous_versions = Function(fget="get_previous_versions")
 
     @classmethod
@@ -59,6 +60,20 @@ class Document:
 
     def get_file(self):
         return self.to_dict(*self.get_file_fields())
+
+    def get_previous_version(self):
+        Doc = self.registry.Attachment.Document
+        query = Doc.query()
+        query = query.filter(Doc.uuid == self.previous_doc_uuid)
+        query = query.filter(Doc.version == self.previous_doc_version)
+        return query.one_or_none()
+
+    def get_next_version(self):
+        Doc = self.registry.Attachment.Document
+        query = Doc.query()
+        query = query.filter(Doc.previous_doc_uuid == self.uuid)
+        query = query.filter(Doc.previous_doc_version == self.version)
+        return query.one_or_none()
 
     def get_previous_versions(self):
         res = []
@@ -86,23 +101,18 @@ class Document:
 
         return super(Document, cls).insert(*args, **kwargs)
 
-
-@register(Attachment.Document)
-class Latest(Attachment.Document, Mixin.ForbidDelete):
-
-    DOCUMENT_TYPE = 'latest'
-    previous_versions = Function(fget="get_previous_versions")
-
-    uuid = UUID(primary_key=True, binary=False, nullable=False)
-    version = String(primary_key=True, nullable=False)
-
     @classmethod
-    def define_table_args(cls):
-        table_args = super(Latest, cls).define_table_args()
-        D = cls.registry.Attachment.Document
-        return table_args + (ForeignKeyConstraint(
-            [cls.uuid, cls.version], [D.uuid, D.version],
-            onupdate='cascade'),)
+    def query(cls, *args, **kwargs):
+        query = super(Document, cls).query(*args, **kwargs)
+        if cls.__registry_name__ != 'Model.Attachment.Document':
+            query = query.filter(cls.type == cls.DOCUMENT_TYPE)
+
+        return query
+
+
+@register(Attachment.Document, tablename=Attachment.Document)
+class Latest(Attachment.Document, Mixin.ForbidDelete):
+    DOCUMENT_TYPE = 'latest'
 
     @classmethod
     def insert(cls, *args, **kwargs):
@@ -170,12 +180,15 @@ class Latest(Attachment.Document, Mixin.ForbidDelete):
 
         target.version = new_version
         target.created_at = datetime.now()
-        target.previous_version = None
+        target.previous_doc_uuid = target.uuid
+        target.previous_doc_version = old_version
 
         if target.type != 'latest':
             target.type = 'latest'
 
-        if 'file' not in modified_fields or target.file is None:
+        if modified_fields == ['type']:
+            pass  # do nothing on files
+        elif 'file' not in modified_fields or target.file is None:
             for field in target.get_file_fields():
                 setattr(target, field, None)
 
@@ -189,48 +202,18 @@ class Latest(Attachment.Document, Mixin.ForbidDelete):
         vals = res.fetchone()
         new_vals.update({x: vals[x] for x in modified_fields})
         new_vals['type'] = 'history'
-        target.new_document = new_vals
-        target.new_history = {
-            'uuid': target.uuid,
-            'version': old_version,
-            'historied_at': datetime.now()
-        }
+        target.new_history = new_vals
 
     @classmethod
     def after_update_orm_event(cls, mapper, connection, target):
-        print('after_update_orm_event')
-        if (
-            hasattr(target, 'new_history') and target.new_history and
-            hasattr(target, 'new_document') and target.new_document
-        ):
-            # conn = cls.registry.session.connection()
+        if hasattr(target, 'new_history') and target.new_history:
             conn = cls.registry.session
-
-            conn.execute(
-                insert(
-                    cls.registry.Attachment.Document.__table__
-                ).values(**target.new_document)
-            )
             conn.execute(
                 insert(
                     cls.registry.Attachment.Document.History.__table__
                 ).values(**target.new_history)
             )
-            latest = cls.registry.Attachment.Document.__table__
-            query = update(latest)
-            query = query.where(latest.c.uuid == target.uuid)
-            query = query.where(latest.c.version == target.version)
-            query = query.values(
-                attachment_document_uuid=target.new_history['uuid'],
-                attachment_document_version=target.new_history['version'],
-            )
-            print(str(query))
-            print(target.uuid, target.version)
-            print(target.new_history)
-            res = conn.execute(query)
-            print(res.rowcount)
             delattr(target, 'new_history')
-            delattr(target, 'new_document')
 
     def historize_a_copy(self):
         if not self.file:
@@ -253,18 +236,6 @@ class Latest(Attachment.Document, Mixin.ForbidDelete):
         self.registry.flush()  # flush call the listen then do the archive
 
 
-@register(Attachment.Document)
+@register(Attachment.Document, tablename=Attachment.Document)
 class History(Attachment.Document, Mixin.ReadOnly):
-
     DOCUMENT_TYPE = 'history'
-
-    uuid = UUID(primary_key=True, binary=False, nullable=False)
-    version = String(primary_key=True, nullable=False)
-    historied_at = DateTime()
-
-    @classmethod
-    def define_table_args(cls):
-        table_args = super(History, cls).define_table_args()
-        D = cls.registry.Attachment.Document
-        return table_args + (ForeignKeyConstraint(
-            [cls.uuid, cls.version], [D.uuid, D.version]),)
