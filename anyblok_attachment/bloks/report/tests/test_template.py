@@ -16,7 +16,7 @@ class TestTemplate(BlokTestCase):
         template = self.registry.Attachment.Template.insert(
             template_path='report#=#tests/test_parser.py',
             model="Model.Attachment.Template")
-        with self.assertEqual(RenderException):
+        with self.assertRaises(RenderException):
             template.render({})
 
     def test_check_if_file_must_be_generated_1(self):
@@ -60,4 +60,4 @@ class TestTemplate(BlokTestCase):
         template = self.registry.Attachment.Template.insert(
             template_path='report#=#tests/template.tmpl',
             model="Model.Attachment.Template")
-        self.assertIs(template.get_template(), "template")
+        self.assertEqual(template.get_template(), "template\n")

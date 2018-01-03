@@ -48,16 +48,20 @@ The template describe how to generate the document file in function of of the da
 
 The ``Model.Attachment.Template`` can be used directly an Template type class must be add with polymorphism::
 
+    @register(Model.Attachment)
+    class Template:
+
+        def get_template_type(self):
+            res = super(MyTemplateType, self).get_template_type()
+            res.update({'MyTemplateType': 'My type label'})
+            return res
+
+
     @register(Model.Attachment.Template)
     class MyTemplateType(Model.Attachment.Template, Mixin.AttachmentTemplateType, ... other mixin):
         TYPE = 'MyTypeOfTemplate'
 
         # other field need for the template
-
-        def get_template_type(self):
-            res = super(MyTemplateType, self).get_template_type()
-            res.update({self.TYPE: 'My type label'})
-            return res
 
         def render(self):
             # generate a file

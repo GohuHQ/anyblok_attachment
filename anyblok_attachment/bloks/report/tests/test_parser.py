@@ -20,7 +20,8 @@ class TestParser(BlokTestCase):
         parser = self.registry.Attachment.Parser(
             'Model.registry.Attachment.Parser')
         template = self.registry.Attachment.Template.insert(
-            template_path='report#=#tests/test_parser.py')
+            template_path='report#=#tests/test_parser.py',
+            model="Model.Attachment.Template")
         document = self.registry.Attachment.Document.insert(
             template=template)
         self.assertFalse(
