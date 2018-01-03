@@ -14,3 +14,13 @@ Attachment = Declarations.Model.Attachment
 class Document:
 
     template = Many2One(model=Attachment.Template)
+
+
+@Declarations.register(Attachment.Document)
+class Latest:
+
+    def get_file(self):
+        if self.template.check_if_file_must_be_generated(self):
+            self.template.create_file_for(self)
+
+        return super(Latest, self).get_file()

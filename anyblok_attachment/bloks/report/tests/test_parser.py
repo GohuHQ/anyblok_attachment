@@ -11,18 +11,17 @@ from anyblok.tests.testcase import BlokTestCase
 class TestParser(BlokTestCase):
 
     def test_serialize(self):
-        parser = self.registry.Attachment.Parser(
-            'Model.registry.Attachment.Parser')
+        Parser = self.registry.Attachment.Parser
+        model = 'Model.registry.Attachment.Parser'
         data = {'a': 'Data'}
-        self.assertEqual(parser.serialize(data), data)
+        self.assertEqual(Parser.serialize(model, data), data)
 
     def test_check_if_file_must_be_generated(self):
-        parser = self.registry.Attachment.Parser(
-            'Model.registry.Attachment.Parser')
+        Parser = self.registry.Attachment.Parser
         template = self.registry.Attachment.Template.insert(
             template_path='report#=#tests/test_parser.py',
             model="Model.Attachment.Template")
         document = self.registry.Attachment.Document.insert(
             template=template)
         self.assertFalse(
-            parser.check_if_file_must_be_generated(template, document))
+            Parser.check_if_file_must_be_generated(template, document))

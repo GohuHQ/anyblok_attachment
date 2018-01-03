@@ -52,6 +52,10 @@ setup(
             'report-format=anyblok_attachment.bloks.format:ReportBlok',
             'report-jinja=anyblok_attachment.bloks.jinja:ReportBlok',
         ],
+        'test_bloks': [
+            'test_report_1=anyblok_attachment.test_bloks.test1:TestBlok',
+            'test_report_2=anyblok_attachment.test_bloks.test2:TestBlok',
+        ],
     },
     include_package_data=True,
     install_requires=requirements,

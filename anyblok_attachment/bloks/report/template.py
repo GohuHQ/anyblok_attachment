@@ -9,9 +9,10 @@ from anyblok import Declarations
 from uuid import uuid1
 from anyblok.column import UUID, DateTime, String, Selection
 from datetime import datetime
-from .exceptions import RenderException, PathException
+from .exceptions import TemplateException, RenderException, PathException
 from .common import format_path
 import os
+import hashlib
 
 
 Model = Declarations.Model
@@ -97,5 +98,75 @@ class Template:
                 return self.registry.get(self.parser_model)
 
     def render(self, data):
-        """Return the file create by the templating engine"""
+        """Return the file create by the templating engine
+
+        :param data: the serialized data
+        """
         raise RenderException("No render defined by %r", self.__class__)
+
+    def update_document(self, document, file_, data):
+        """Update the document to fill file and content
+
+        :param document: attachment document instance
+        :param file_: bytes file
+        :param data: serialized data
+        """
+        if document.file:
+            document.add_new_version()
+
+        document.file = file_
+        document.file_added_at = datetime.now()
+        document.filename = self.filename.format(
+            doc=document, template=self, data=data,
+            date=document.file_added_at)
+        document.contenttype = 'plain/text'
+        document.filesize = len(file_)
+        hash = hashlib.sha256()
+        hash.update(file_)
+        document.hash = hash.digest()
+
+    def create_file_for(self, document):
+        """Create a file and add it in the attachment document
+
+        :param document: attachment document instance
+        """
+        Parser = self.get_parser()
+        data = Parser.serialize(self.model, document.data)
+        file_ = self.render(data)
+        self.update_document(document, file_, data)
+
+    def check_if_file_must_be_generated(self, document):
+        """Return True if the file must generate
+
+        :param document: attachment document instance
+        :rtype: bool
+        """
+        if document.type == 'history':
+            return False
+
+        if document.template is not self:
+            return False
+
+        if not document.file:
+            return True
+
+        if document.file_added_at < self.updated_at:
+            return True
+
+        parser = self.get_parser()(self.model)
+        return parser.check_if_file_must_be_generated(self, document)
+
+    def check_flush_validity(self):
+        if not self.get_template():
+            raise TemplateException("No configured template for %r", self)
+
+        if not self.get_parser():
+            raise TemplateException("No configured parser for %r", self)
+
+    @classmethod
+    def after_update_orm_event(cls, mapper, connection, target):
+        target.check_flush_validity()
+
+    @classmethod
+    def after_insert_orm_event(cls, mapper, connection, target):
+        target.check_flush_validity()

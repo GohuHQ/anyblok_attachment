@@ -15,15 +15,18 @@ class Parser:
     def __init__(self, model):
         self.model = model
 
-    def serialize(self, data):
+    @classmethod
+    def serialize(cls, model, data):
         """Serialize the data to be understanding by template
 
+        :param model: an anyblok model need to serialize
         :param data: json dict
         :return: json dict
         """
         return data
 
-    def check_if_file_must_be_generated(self, template, document):
+    @classmethod
+    def check_if_file_must_be_generated(cls, template, document):
         """Return a boolean to know if the file must be generate or not
 
         :param template: template intance

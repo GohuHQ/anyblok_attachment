@@ -25,7 +25,6 @@ API doc
     :show-inheritance:
     :noindex:
 
-
 **Template**
 
 .. automodule:: anyblok_attachment.bloks.report.template
@@ -35,10 +34,6 @@ API doc
     :show-inheritance:
     :noindex:
 
-.. autoanyblok-declaration:: AttachmentTemplateType
-    :members:
-    :show-inheritance:
-    :noindex:
 **Document**
 
 .. automodule:: anyblok_attachment.bloks.report.document
@@ -57,8 +52,11 @@ API doc
 
 .. automodule:: anyblok_attachment.bloks.report.exceptions
 
-.. autoexcepion:: PathException:
+.. autoexception:: TemplateException:
     :noindex:
 
-.. autoexcepion:: RenderException:
+.. autoexception:: PathException:
+    :noindex:
+
+.. autoexception:: RenderException:
     :noindex:

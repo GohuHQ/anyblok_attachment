@@ -6,7 +6,8 @@
 # v. 2.0. If a copy of the MPL was not distributed with this file,You can
 # obtain one at http://mozilla.org/MPL/2.0/.
 from anyblok.tests.testcase import BlokTestCase
-from anyblok_attachment.bloks.report.exceptions import RenderException
+from anyblok_attachment.bloks.report.exceptions import (
+    RenderException, TemplateException, PathException)
 from os import urandom
 
 
@@ -25,15 +26,14 @@ class TestTemplate(BlokTestCase):
             model="Model.Attachment.Template")
         document = self.registry.Attachment.Document.insert(
             template=template)
-        self.assertFalse(template.check_if_file_must_be_generated(document))
+        self.assertTrue(template.check_if_file_must_be_generated(document))
 
     def test_check_if_file_must_be_generated_2(self):
         template = self.registry.Attachment.Template.insert(
             template_path='report#=#tests/test_parser.py',
             model="Model.Attachment.Template")
         document = self.registry.Attachment.Document.insert()
-        with self.assertRaises(RenderException):
-            template.check_if_file_must_be_generated(document)
+        self.assertFalse(template.check_if_file_must_be_generated(document))
 
     def test_update_document(self):
         template = self.registry.Attachment.Template.insert(
@@ -61,3 +61,16 @@ class TestTemplate(BlokTestCase):
             template_path='report#=#tests/template.tmpl',
             model="Model.Attachment.Template")
         self.assertEqual(template.get_template(), "template\n")
+
+    def test_without_parser(self):
+        with self.assertRaises(TemplateException):
+            self.registry.Attachment.Template.insert(
+                template_path='report#=#tests/template.tmpl',
+                parser_model='',
+                model="Model.Attachment.Template")
+
+    def test_without_template(self):
+        with self.assertRaises((TemplateException, PathException)):
+            self.registry.Attachment.Template.insert(
+                template_path='',
+                model="Model.Attachment.Template")

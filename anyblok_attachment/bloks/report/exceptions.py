@@ -7,6 +7,10 @@
 # obtain one at http://mozilla.org/MPL/2.0/.
 
 
+class TemplateException(Exception):
+    """Simple exception if miss Template data"""
+
+
 class PathException(Exception):
     """Simple exception if it is not a valid path for Template"""
 

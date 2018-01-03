@@ -34,10 +34,12 @@ It is an unSQL model, the goal is to transform the data from ``Model.Attachment.
     @register(Model.Attachment.Parser)
     class MyParser(Model.Attachment.Parser):
 
-        def serialize(self, data):
+        @classmethod
+        def serialize(cls, data):
             # return serialize data
 
-        def check_if_file_must_be_generated(self, template, document):
+        @classmethod
+        def check_if_file_must_be_generated(cls, template, document):
             # return a Boolean to know if the file must be regenerate
 
 
@@ -58,10 +60,32 @@ The ``Model.Attachment.Template`` can be used directly an Template type class mu
 
 
     @register(Model.Attachment.Template)
-    class MyTemplateType(Model.Attachment.Template, Mixin.AttachmentTemplateType, ... other mixin):
+    class MyTemplateType(Model.Attachment.Template):
         TYPE = 'MyTypeOfTemplate'
 
+        uuid = UUID(primary_key=True, nullable=False, binary=False, 
+                    foreign_key=Model.Attachment.Template.use('uuid').options(ondelete='cascade'))
         # other field need for the template
+
+        def render(self):
+            # generate a file
+            return file
+
+or on the same table::
+
+    @register(Model.Attachment)
+    class Template:
+
+        def get_template_type(self):
+            res = super(MyTemplateType, self).get_template_type()
+            res.update({'MyTemplateType': 'My type label'})
+            return res
+
+
+    @register(Model.Attachment.Template,
+              tablename=Model.Attachment.Template)
+    class MyTemplateType(Model.Attachment.Template):
+        TYPE = 'MyTypeOfTemplate'
 
         def render(self):
             # generate a file
