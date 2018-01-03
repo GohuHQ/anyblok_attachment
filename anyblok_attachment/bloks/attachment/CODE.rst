@@ -10,6 +10,7 @@ API doc
 ~~~~~~~
 
 **Attachment**
+``````````````
 
 .. automodule:: anyblok_attachment.bloks.attachment.attachment
 
@@ -19,6 +20,7 @@ API doc
     :noindex:
 
 **Documments**
+``````````````
 
 .. automodule:: anyblok_attachment.bloks.attachment.document
 
@@ -38,6 +40,7 @@ API doc
     :noindex:
 
 **Exceptions**
+``````````````
 
 .. automodule:: anyblok_attachment.bloks.attachment.exceptions
 

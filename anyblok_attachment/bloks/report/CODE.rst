@@ -10,6 +10,7 @@ API doc
 ~~~~~~~
 
 **Common**
+``````````
 
 .. automodule:: anyblok_attachment.bloks.report.common
 
@@ -17,6 +18,7 @@ API doc
     :noindex:
 
 **Parser**
+``````````
 
 .. automodule:: anyblok_attachment.bloks.report.parser
 
@@ -26,6 +28,7 @@ API doc
     :noindex:
 
 **Template**
+````````````
 
 .. automodule:: anyblok_attachment.bloks.report.template
 
@@ -35,6 +38,7 @@ API doc
     :noindex:
 
 **Document**
+````````````
 
 .. automodule:: anyblok_attachment.bloks.report.document
 
@@ -49,14 +53,15 @@ API doc
     :noindex:
 
 **Exceptions**
+``````````````
 
 .. automodule:: anyblok_attachment.bloks.report.exceptions
 
-.. autoexception:: TemplateException:
+.. autoexception:: TemplateException
     :noindex:
 
-.. autoexception:: PathException:
+.. autoexception:: PathException
     :noindex:
 
-.. autoexception:: RenderException:
+.. autoexception:: RenderException
     :noindex:
