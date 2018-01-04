@@ -16,3 +16,4 @@ CHANGELOG
 
 * [ADD] **attachment** blok
 * [ADD] **report** blok
+* [ADD] **report-format** blok

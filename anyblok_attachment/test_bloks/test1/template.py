@@ -12,7 +12,7 @@ from anyblok import Declarations
 class Template:
 
     def get_template_type(self):
-        res = super(MyTemplate, self).get_template_type()
+        res = super(Template, self).get_template_type()
         res.update({'MyTemplate': 'My Template'})
         return res
 
