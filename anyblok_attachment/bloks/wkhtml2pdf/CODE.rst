@@ -28,7 +28,20 @@ API doc
 ``````````
 .. automodule:: anyblok_attachment.bloks.wkhtml2pdf.mixin
 
-.. autoanyblok-declaration:: TemplateWkHtml2Pdf
+.. autoanyblok-declaration:: WkHtml2Pdf
     :members:
     :show-inheritance:
+    :noindex:
+
+**Exceptions**
+``````````````
+.. automodule:: anyblok_attachment.bloks.wkhtml2pdf.exceptions
+
+.. autoexception:: WkHtml2PdfException
+    :noindex:
+
+.. autoexception:: CleanTmpDirException
+    :noindex:
+
+.. autoexception:: PageValidyException
     :noindex:

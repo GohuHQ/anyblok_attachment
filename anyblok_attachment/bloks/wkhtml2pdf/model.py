@@ -61,6 +61,7 @@ class WkHtml2Pdf:
 
 @register(Attachment.WkHtml2Pdf)
 class Page:
+    """Define the Page size"""
 
     label = String(primary_key=True, nullable=False)
     created_at = DateTime(nullable=False, default=datetime.now)
@@ -75,8 +76,35 @@ class Page:
     def define_table_args(cls):
         table_args = super(Page, cls).define_table_args()
         return table_args + (
-            CheckConstraint('height is null or height >= 0',
-                            name="height_upper_than_0"),
-            CheckConstraint('width is null or width >= 0',
-                            name="width_upper_than_0"),
+            CheckConstraint(
+                '(height is null and width is null) or '
+                '(height > 0 and width > 0)',
+                name="size_upper_than_0"),
         )
+
+    def get_options(self):
+        options = []
+        for field in ('size', 'width', 'height'):
+            val = getattr(self, field)
+            if val:
+                options.append('--page-' + field)
+                options.append(str(val))
+
+        return options
+
+    def check_flush_validity(self):
+        if not self.size and not self.height and not self.width:
+            raise PageValidityException(
+                "You must define a size or a height and width")
+
+        if self.size:
+            self.height = None
+            self.width = None
+
+    @classmethod
+    def after_update_orm_event(cls, mapper, connection, target):
+        target.check_flush_validity()
+
+    @classmethod
+    def after_insert_orm_event(cls, mapper, connection, target):
+        target.check_flush_validity()

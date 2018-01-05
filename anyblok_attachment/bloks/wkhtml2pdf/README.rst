@@ -1,6 +1,6 @@
-.. This file is a part of the AnyBlok / Attachmment project
+.. This file is a part of the AnyBlok / Attachment project
 ..
-..    Copyright (C) 2017 Jean-Sebastien SUZANNE <jssuzanne@anybox.fr>
+..    Copyright (C) 2018 Jean-Sebastien SUZANNE <jssuzanne@anybox.fr>
 ..
 .. This Source Code Form is subject to the terms of the Mozilla Public License,
 .. v. 2.0. If a copy of the MPL was not distributed with this file,You can
@@ -8,3 +8,31 @@
 
 Memento
 ~~~~~~~
+
+Define tools to convert HTML to PDF with wkhtmltopdf.
+
+You may define one or more configuration::
+
+    page_A4 = registry.Attachment.WkHtml2Pdf.Page.insert(
+        label="A4", size="A4")
+    page_postal_label = registry.Attachment.WkHtml2Pdf.Page.insert(
+        label="Postal carrier 1", height=80, width=120)
+    wkhtml2pdf = registry.Attachment.WkHtml2Pdf.insert(
+        page=page_A4, margin_top=20)
+    template = registry.Attachment.Template.insert(
+        ...,
+        wkhtml2pdf=wkhtml2pdf
+    )
+    doc = registry.Attachment.Document.insert(
+        template=template, data=...)
+    doc.get_file()
+
+To use WkHtml2Pdf in your template is easy::
+
+    @register(Model.Attachment.Template)
+    class MyTemplate(Mixin.Attachment.WkHtml2Pdf):
+        ... # template configuration
+
+        def render(self, data):
+            html_content = ...
+            return self.wkhtml2pdf(html_content)
