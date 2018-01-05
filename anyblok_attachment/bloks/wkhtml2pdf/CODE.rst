@@ -9,6 +9,9 @@
 API doc
 ~~~~~~~
 
+**Models**
+``````````
+
 .. automodule:: anyblok_attachment.bloks.wkhtml2pdf.model
 
 .. autoanyblok-declaration:: WkHtml2Pdf
@@ -16,6 +19,13 @@ API doc
     :show-inheritance:
     :noindex:
 
+.. autoanyblok-declaration:: Page
+    :members:
+    :show-inheritance:
+    :noindex:
+
+**Mixins**
+``````````
 .. automodule:: anyblok_attachment.bloks.wkhtml2pdf.mixin
 
 .. autoanyblok-declaration:: TemplateWkHtml2Pdf
