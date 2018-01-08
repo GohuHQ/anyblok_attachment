@@ -18,7 +18,7 @@ You may define one or more configuration::
     page_postal_label = registry.Attachment.WkHtml2Pdf.Page.insert(
         label="Postal carrier 1", height=80, width=120)
     wkhtml2pdf = registry.Attachment.WkHtml2Pdf.insert(
-        page=page_A4, margin_top=20)
+        label="A4", page=page_A4, margin_top=20)
     template = registry.Attachment.Template.insert(
         ...,
         wkhtml2pdf=wkhtml2pdf
