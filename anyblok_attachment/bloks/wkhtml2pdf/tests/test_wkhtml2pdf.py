@@ -59,6 +59,24 @@ class TestWkHtml2Pdf(BlokTestCase):
         self.assertEqual(
             wkhtml2pdf.options_from_self(),
             [
+                '--margin-bottom', '10',
+                '--margin-right', '10',
+                '--margin-left', '10',
+                '--margin-top', '10',
+                '--orientation', 'Portrait',
+                '--encoding', 'utf-8',
+                '--javascript-delay', '200',
+                '--load-error-handling', 'abort',
+                '--load-media-error-handling', 'abort',
+                '--copies', '1',
+                '--grayscale',
+                '--lowquality',
+                '--page-size', 'Letter',
+                '--background',
+                '--images',
+                '--collate',
+                '--enable-javascript',
+                '--enable-local-file-access',
             ]
         )
 
@@ -70,6 +88,8 @@ class TestWkHtml2Pdf(BlokTestCase):
         self.assertEqual(
             wkhtml2pdf.options_from_configuration(),
             [
+                '--quiet',
+                '--no-debug-javascript',
             ]
         )
 

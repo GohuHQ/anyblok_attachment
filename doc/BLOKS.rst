@@ -62,16 +62,3 @@ Blok **report-format**
 
 .. include:: ../anyblok_attachment/bloks/format/README.rst
 .. include:: ../anyblok_attachment/bloks/format/CODE.rst
-
-Blok **report-jinja**
----------------------
-
-.. automodule:: anyblok_attachment.bloks.jinja
-.. autoclass:: ReportBlok
-    :members:
-    :undoc-members:
-    :show-inheritance:
-    :noindex:
-
-.. include:: ../anyblok_attachment/bloks/jinja/README.rst
-.. include:: ../anyblok_attachment/bloks/jinja/CODE.rst

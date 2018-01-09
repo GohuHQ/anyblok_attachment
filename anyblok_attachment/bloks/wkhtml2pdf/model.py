@@ -1,6 +1,6 @@
 # This file is a part of the AnyBlok / Attachment api project
 #
-#    Copyright (C) 2017 Jean-Sebastien SUZANNE <jssuzanne@anybox.fr>
+#    Copyright (C) 2018 Jean-Sebastien SUZANNE <jssuzanne@anybox.fr>
 #
 # This Source Code Form is subject to the terms of the Mozilla Public License,
 # v. 2.0. If a copy of the MPL was not distributed with this file,You can
@@ -37,6 +37,7 @@ class WkHtml2Pdf:
     grayscale = Boolean(default=False)
     lowquality = Boolean(default=False)
     dpi = Integer()
+    page_offset = Integer(nullable=False, default=0)
     minimu_font_size = Integer()
     margin_bottom = Integer(nullable=False, default=10)
     margin_left = Integer(nullable=False, default=10)
@@ -108,8 +109,8 @@ class WkHtml2Pdf:
         for option in ('javascript', 'local_file_access'):
             val = getattr(self, option)
             options.append(
-                ('--enable' if val else '--disable-') + option.replace('_',
-                                                                       '-'))
+                ('--enable-' if val else '--disable-') + option.replace('_',
+                                                                        '-'))
 
         return options
 
