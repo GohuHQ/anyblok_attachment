@@ -45,6 +45,9 @@ setup(
     url="http://docs.anyblok-attachment.anyblok.org/%s" % version,
     packages=find_packages(),
     entry_points={
+        'anyblok.init': [
+            'wkhtml2pdf_config=anyblok_attachment:anyblok_init_config',
+        ],
         'bloks': [
             'attachment=anyblok_attachment.bloks.attachment:AttachmentBlok',
             'report=anyblok_attachment.bloks.report:ReportBlok',

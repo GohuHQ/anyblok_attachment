@@ -21,7 +21,7 @@ You may define one or more configuration::
         label="A4", page=page_A4, margin_top=20)
     template = registry.Attachment.Template.insert(
         ...,
-        wkhtml2pdf=wkhtml2pdf
+        wkhtml2pdf_configuration=wkhtml2pdf
     )
     doc = registry.Attachment.Document.insert(
         template=template, data=...)

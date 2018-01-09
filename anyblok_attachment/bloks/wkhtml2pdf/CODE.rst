@@ -40,8 +40,5 @@ API doc
 .. autoexception:: WkHtml2PdfException
     :noindex:
 
-.. autoexception:: CleanTmpDirException
-    :noindex:
-
-.. autoexception:: PageValidyException
+.. autoexception:: PageValidityException
     :noindex:

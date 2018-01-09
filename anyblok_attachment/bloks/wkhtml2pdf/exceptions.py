@@ -7,5 +7,9 @@
 # obtain one at http://mozilla.org/MPL/2.0/.
 
 
+class WkHtml2PdfException(RuntimeError):
+    """Only id the page configuration is wrong"""
+
+
 class PageValidityException(Exception):
     """Only id the page configuration is wrong"""

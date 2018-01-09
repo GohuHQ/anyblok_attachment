@@ -15,7 +15,7 @@ import tempfile
 import os
 import subprocess
 import shutil
-from .exceptions import PageValidityException
+from .exceptions import PageValidityException, WkHtml2PdfException
 from logging import getLogger
 
 register = Declarations.register
@@ -131,7 +131,7 @@ class WkHtml2Pdf:
         :param prefix: prefix use for the tempory document
         :param html_content: html file (bytes)
         :rtype: bytes
-        :exception: RuntimeError, Exception
+        :exception: WkHtml2PdfException
         """
         tmp_dir = tempfile.mkdtemp(prefix + '-html2pdf')
         html_path = os.path.join(tmp_dir, 'in.html')
@@ -153,7 +153,7 @@ class WkHtml2Pdf:
         if wkhtmltopdf.returncode != 0:
             logger.error("wkhtmltopdf failure with stdout=%r, stderr=%r",
                          out, err)
-            raise RuntimeError(
+            raise WkHtml2PdfException(
                 (
                     "wkhtmltopdf {cmd} in dir {tmp_dir} failed with code "
                     "{code}, check error log for details"
