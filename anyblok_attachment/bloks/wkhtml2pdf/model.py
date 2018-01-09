@@ -116,7 +116,7 @@ class WkHtml2Pdf:
 
     def options_from_configuration(self):
         options = []
-        if Configuration.get('wkhtmltopdf_quiet'):
+        if not Configuration.get('wkhtmltopdf_unquiet'):
             options.append('--quiet')
         if Configuration.get('wkhtmltopdf_debug_javascript'):
             options.append('--debug-javascript')

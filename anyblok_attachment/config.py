@@ -34,7 +34,7 @@ except ImportError:
 @Configuration.add('attachment-wkhtml2pdf', label="WkHtml2Pdf - options",
                    must_be_loaded_by_unittest=True)
 def define_attachment_wkhtml2pdf(group):
-    group.add_argument('--wkhtml2pdf-quiet', action="store_true",
-                       help="Be less verbose")
+    group.add_argument('--wkhtml2pdf-unquiet', action="store_false",
+                       default=True, help="Be more verbose")
     group.add_argument('--wkhtml2pdf-debug-javascript', action="store_true",
                        help="Show javascript debugging output")

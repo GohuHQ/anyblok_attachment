@@ -112,7 +112,4 @@ class TestWkHtml2Pdf(BlokTestCase):
             """,
             encoding='utf-8'
         )
-        self.assertEqual(
-            wkhtml2pdf.cast_html2pdf('tmp', html_content),
-            ''
-        )
+        self.assertTrue(wkhtml2pdf.cast_html2pdf('tmp', html_content))
