@@ -38,7 +38,7 @@ requirements = [
 setup(
     name='anyblok_attachment',
     version=version,
-    description="test simple usecase between anyblok and dramatiq",
+    description="Versionned attachment for AnyBlok",
     long_description=readme + '\n' + FRONT + '\n' + CHANGES,
     author="jssuzanne",
     author_email='jssuzanne@anybox.fr',
