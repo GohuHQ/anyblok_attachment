@@ -11,8 +11,8 @@
 CHANGELOG
 =========
 
-0.1.0
------
+1.0.0 (2018-01-10)
+------------------
 
 * [ADD] **attachment** blok: stock versionned file
 * [ADD] **report** blok: create versionned file from template
