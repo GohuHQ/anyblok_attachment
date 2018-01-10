@@ -16,8 +16,9 @@ TYPE = 'format'
 @Declarations.register(Attachment)
 class Template:
 
-    def get_template_type(self):
-        res = super(Template, self).get_template_type()
+    @classmethod
+    def get_template_type(cls):
+        res = super(Template, cls).get_template_type()
         res.update({TYPE: 'Simple python format templating'})
         return res
 

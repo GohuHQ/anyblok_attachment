@@ -60,7 +60,8 @@ class WkHtml2Pdf:
     load_media_error_handling = Selection(selections='get_error_handling',
                                           default='abort', nullable=False)
 
-    def get_error_handling(self):
+    @classmethod
+    def get_error_handling(cls):
         return {x: x.capitalize() for x in ('abort', 'ignore', 'skip')}
 
     @classmethod

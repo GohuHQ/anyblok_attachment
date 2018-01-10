@@ -37,7 +37,8 @@ class Template:
                       default="{doc.uuid}-{doc.version}-{date}")
     type = Selection(selections="get_template_type", nullable=False)
 
-    def get_template_type(self):
+    @classmethod
+    def get_template_type(cls):
         """Give the tempate type"""
         return {
             'invalid': 'Invalid template'
@@ -47,7 +48,8 @@ class Template:
                               default='path')
     template_path = String()
 
-    def get_template_from(self):
+    @classmethod
+    def get_template_from(cls):
         """Give the location of the template"""
         return {
             'path': 'From path on file system',
@@ -57,7 +59,8 @@ class Template:
                             default='model')
     parser_model = String(default="Model.Attachment.Parser")
 
-    def get_parser_from(self):
+    @classmethod
+    def get_parser_from(cls):
         """Give the location of the parser"""
         return {
             'model': 'From model',
