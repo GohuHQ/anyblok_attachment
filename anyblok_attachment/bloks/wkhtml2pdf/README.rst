@@ -11,6 +11,16 @@ Memento
 
 Define tools to convert HTML to PDF with wkhtmltopdf.
 
+To use WkHtml2Pdf in your template is easy::
+
+    @register(Model.Attachment.Template)
+    class MyTemplate(Mixin.WkHtml2Pdf):
+        ... # template configuration
+
+        def render(self, data):
+            html_content = ...
+            return self.wkhtml2pdf(html_content)
+
 You may define one or more configuration::
 
     page_A4 = registry.Attachment.WkHtml2Pdf.Page.insert(
@@ -26,13 +36,3 @@ You may define one or more configuration::
     doc = registry.Attachment.Document.insert(
         template=template, data=...)
     doc.get_file()
-
-To use WkHtml2Pdf in your template is easy::
-
-    @register(Model.Attachment.Template)
-    class MyTemplate(Mixin.Attachment.WkHtml2Pdf):
-        ... # template configuration
-
-        def render(self, data):
-            html_content = ...
-            return self.wkhtml2pdf(html_content)

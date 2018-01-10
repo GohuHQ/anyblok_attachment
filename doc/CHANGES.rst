@@ -14,6 +14,7 @@ CHANGELOG
 0.1.0
 -----
 
-* [ADD] **attachment** blok
-* [ADD] **report** blok
-* [ADD] **report-format** blok
+* [ADD] **attachment** blok: stock versionned file
+* [ADD] **report** blok: create versionned file from template
+* [ADD] **report-format** blok: template type
+* [ADD] **wkhtml2pdf** blok: convert html to pdf in the template

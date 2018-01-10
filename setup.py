@@ -57,6 +57,7 @@ setup(
         'test_bloks': [
             'test_report_1=anyblok_attachment.test_bloks.test1:TestBlok',
             'test_report_2=anyblok_attachment.test_bloks.test2:TestBlok',
+            'test_report_3=anyblok_attachment.test_bloks.test3:TestBlok',
         ],
     },
     include_package_data=True,

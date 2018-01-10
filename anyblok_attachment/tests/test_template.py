@@ -76,3 +76,23 @@ class TestTemplate(DBTestCase):
         self.assertEqual(get_file, wanted_file)
         self.assertTrue(get_file['hash'])
         self.assertTrue(get_file['file_added_at'])
+
+    def test_add_template_with_wkhtml2pdf(self):
+        file_ = urandom(10)
+        registry = self.init_registry_with_bloks(['test_report_3'], None)
+        registry.Attachment.Template.MyTemplate.file_ = file_
+        page = registry.Attachment.WkHtml2Pdf.Page.insert(
+            label="A4", size="A4")
+        wkhtml2pdf = registry.Attachment.WkHtml2Pdf.insert(
+            label="Custom", page=page)
+        template = registry.Attachment.Template.MyTemplate.insert(
+            template_path="report#=#common.py",
+            filename='test',
+            model="Model.System.Blok",
+            wkhtml2pdf_configuration=wkhtml2pdf
+        )
+        document = registry.Attachment.Document.insert(template=template)
+        get_file = document.get_file()
+        self.assertTrue(get_file['file'])
+        self.assertTrue(get_file['hash'])
+        self.assertTrue(get_file['file_added_at'])
