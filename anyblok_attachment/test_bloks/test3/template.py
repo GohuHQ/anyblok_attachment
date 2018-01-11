@@ -20,8 +20,8 @@ class Template:
 @Declarations.register(Declarations.Model.Attachment.Template,
                        tablename=Declarations.Model.Attachment.Template)
 class MyTemplate(
-    Declarations.Model.Attachment.Template,
-    Declarations.Mixin.WkHtml2Pdf
+    Declarations.Mixin.WkHtml2Pdf,
+    Declarations.Model.Attachment.Template
 ):
     TYPE = 'MyTemplate'
 
