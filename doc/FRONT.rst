@@ -57,17 +57,9 @@ Run the test with ``nose``::
 Dependencies
 ------------
 
-AnyBlok / Dramatiq works with **Python 3.3** and later. The install process will
-ensure that `AnyBlok <http://doc.anyblok.org>`_,
-`dramatiq <https://dramatiq.io>`_ are installed, in addition to other 
+AnyBlok / Attachment works with **Python 3.3** and later. The install process will
+ensure that `AnyBlok <http://doc.anyblok.org>`_ is installed, in addition to other 
 dependencies. The latest version of them is strongly recommended.
-
-
-Contributing (hackers needed!)
-------------------------------
-
-Anyblok / Dramatiq is at a very early stage, feel free to fork, talk with core
-dev, and spread the word!
 
 Author
 ------
