@@ -11,6 +11,12 @@
 CHANGELOG
 =========
 
+1.0.1 (2018-01-11)
+------------------
+
+* [FIX] ``Mixin.WkHtml2Pdf`` check also if the configuration changed for 
+  **Template.check_if_file_must_be_generated**
+
 1.0.0 (2018-01-10)
 ------------------
 
