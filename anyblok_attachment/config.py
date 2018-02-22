@@ -8,27 +8,16 @@
 from anyblok.config import Configuration
 
 
-Configuration.add_configuration_groups('createdb', ['attachment-wkhtml2pdf'])
-Configuration.add_configuration_groups('updatedb', ['attachment-wkhtml2pdf'])
-Configuration.add_configuration_groups('nose', ['attachment-wkhtml2pdf'])
-Configuration.add_configuration_groups('interpreter', ['attachment-wkhtml2pdf'])
+Configuration.add_application_properties('createdb', ['attachment-wkhtml2pdf'])
+Configuration.add_application_properties('updatedb', ['attachment-wkhtml2pdf'])
+Configuration.add_application_properties('nose', ['attachment-wkhtml2pdf'])
+Configuration.add_application_properties(
+    'interpreter', ['attachment-wkhtml2pdf'])
 
-try:
-    # import the configuration to get application
-    import anyblok_pyramid.config  # noqa
-    Configuration.add_configuration_groups('pyramid', ['attachment-wkhtml2pdf'])
-    Configuration.add_configuration_groups(
-        'gunicorn', ['attachment-wkhtml2pdf'])
-except ImportError:
-    pass
+Configuration.add_application_properties('pyramid', ['attachment-wkhtml2pdf'])
+Configuration.add_application_properties('gunicorn', ['attachment-wkhtml2pdf'])
 
-try:
-    # import the configuration to get application
-    import anyblok_dramatiq.config  # noqa
-    Configuration.add_configuration_groups(
-        'dramatiq', ['attachment-wkhtml2pdf'])
-except ImportError:
-    pass
+Configuration.add_application_properties('dramatiq', ['attachment-wkhtml2pdf'])
 
 
 @Configuration.add('attachment-wkhtml2pdf', label="WkHtml2Pdf - options",
