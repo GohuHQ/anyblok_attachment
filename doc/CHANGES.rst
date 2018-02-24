@@ -11,8 +11,8 @@
 CHANGELOG
 =========
 
-1.0.2
------
+1.0.2 (2018-02-24)
+------------------
 
 * [REF] Anyblok 0.17.0 changed setter to add application and application 
   groups, So I had to adapt the existing to use new setter
