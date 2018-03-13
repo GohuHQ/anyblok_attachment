@@ -21,3 +21,12 @@ etc/
 develop-eggs/
 
 gmon.out
+
+#nosetests with-id
+.noseids
+
+#venv
+venv
+
+# pycharm
+.idea

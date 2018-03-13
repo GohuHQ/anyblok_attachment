@@ -13,3 +13,9 @@ class NoFileException(Exception):
 
 class ProtectedFieldException(Exception):
     """Try to update protected field"""
+
+class NoneValueException(Exception):
+    """The value equals None"""
+
+class NotLatestException(Exception):
+    """Document type is not latest"""
