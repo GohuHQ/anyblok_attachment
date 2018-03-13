@@ -11,6 +11,7 @@ from anyblok.column import UUID, String
 from anyblok.field import Function
 from .exceptions import NoneValueException, NotLatestException
 
+
 @Declarations.register(Declarations.Mixin)
 class LatestDocument:
 
@@ -28,7 +29,7 @@ class LatestDocument:
         return query.one_or_none()
 
     def set_latest_document(self, document):
-        if document.uuid == None:
+        if document.uuid is None:
             raise NoneValueException("Uuid value is None")
 
         if document.type != 'latest':
@@ -59,7 +60,7 @@ class VersionedDocument:
         return query.one_or_none()
 
     def set_versioned_document(self, document):
-        if document.uuid == None:
+        if document.uuid is None:
             raise NoneValueException("Uuid value is None")
 
         self.versioned_document_uuid = document.uuid

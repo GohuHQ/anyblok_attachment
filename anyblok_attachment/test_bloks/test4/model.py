@@ -12,6 +12,7 @@ register = Declarations.register
 Model = Declarations.Model
 Mixin = Declarations.Mixin
 
+
 @register(Model)
 class DocumentTest(Mixin.LatestDocument):
 
