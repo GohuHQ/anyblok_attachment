@@ -39,6 +39,21 @@ API doc
     :show-inheritance:
     :noindex:
 
+**Mixins**
+``````````````
+
+.. automodule:: anyblok_attachment.bloks.attachment.mixin
+
+.. autoanyblok-declaration:: LatestDocument
+        :members:
+        :show-inheritance:
+        :noindex:
+
+.. autoanyblok-declaration:: VersionedDocument
+        :members:
+        :show-inheritance:
+        :noindex:
+
 **Exceptions**
 ``````````````
 
