@@ -8,24 +8,18 @@
 from anyblok.blok import Blok
 
 
-class AttachmentBlok(Blok):
+class TestBlok(Blok):
     """Add attachment in AnyBlok"""
 
     version = '1.0.0'
-    required = ['anyblok-core']
+    required = ['attachment']
     author = 'Suzanne Jean-Sébastien'
 
     @classmethod
     def import_declaration_module(cls):
-        from . import attachment  # noqa
-        from . import document  # noqa
-        from . import mixin  # noqa
+        from . import model  # noqa
 
     @classmethod
     def reload_declaration_module(cls, reload):
-        from . import attachment
-        reload(attachment)
-        from . import document
-        reload(document)
-        from . import mixin
-        reload(mixin)
+        from . import model
+        reload(model)
