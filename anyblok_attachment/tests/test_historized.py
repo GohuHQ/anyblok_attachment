@@ -32,3 +32,14 @@ class TestFieldFunction(DBTestCase):
         self.assertEqual(t.versioned_document_uuid, None)
         self.assertEqual(t.versioned_document_version, None)
         self.assertIsNone(t.versioned_document)
+
+    def test_check_versioned_document(self):
+        registry = self.init_registry(None)
+        registry.upgrade(install=('test_report_4',))
+        doc1 = registry.Attachment.Document.insert()
+        registry.DocumentTest2.insert(versioned_document=doc1)
+        doc2 = registry.Attachment.Document.insert()
+        t2 = registry.DocumentTest2.insert(versioned_document=doc2)
+        query = registry.DocumentTest2.query()
+        query = query.filter(registry.DocumentTest2.is_versioned_document(doc2))
+        self.assertIs(query.one(), t2)

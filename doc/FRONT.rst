@@ -76,6 +76,7 @@ Contributors
 `Sensee <http://sensee.com>`_ team:
 
 * Franck Bret
+* Hugo Quezada
 
 Bugs
 ----
