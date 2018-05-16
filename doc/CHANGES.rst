@@ -11,8 +11,8 @@
 CHANGELOG
 =========
 
-1.1.0
------
+1.1.0 (2018-05-16)
+------------------
 
 * [ADD] add Mixin ``Mixin.LatestDocument`` and ``Mixin.VersionedDocument``
   to help the developer to get **latest_document** or **versioned_document**
