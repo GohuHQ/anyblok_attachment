@@ -6,7 +6,7 @@
 # v. 2.0. If a copy of the MPL was not distributed with this file,You can
 # obtain one at http://mozilla.org/MPL/2.0/.
 from anyblok.tests.testcase import BlokTestCase
-from anyblok.bloks.anyblok_core.exceptions import ForbidDeleteException
+from anyblok_mixins.mixins.exceptions import ForbidDeleteException
 from ..exceptions import ProtectedFieldException, NoFileException
 from os import urandom
 
