@@ -33,6 +33,7 @@ anyblok_init = [
 
 requirements = [
     'anyblok',
+    'anyblok_mixins',
 ]
 
 setup(

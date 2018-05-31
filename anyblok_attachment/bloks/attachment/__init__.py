@@ -12,7 +12,7 @@ class AttachmentBlok(Blok):
     """Add attachment in AnyBlok"""
 
     version = '1.0.0'
-    required = ['anyblok-core']
+    required = ['anyblok-core', 'anyblok-mixins']
     author = 'Suzanne Jean-Sébastien'
 
     @classmethod
