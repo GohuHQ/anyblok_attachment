@@ -163,6 +163,9 @@ class Latest(Attachment.Document, Mixin.ForbidDelete):
 
         return False
 
+    def put_to_none(self, field):
+        setattr(self, field, None)
+
     @classmethod
     def before_update_orm_event(cls, mapper, connection, target):
         modified_fields = target.get_modified_fields()
@@ -205,7 +208,7 @@ class Latest(Attachment.Document, Mixin.ForbidDelete):
             pass  # do nothing on files
         elif target.is_unmodified_file(modified_fields):
             for field in target.get_file_fields():
-                setattr(target, field, None)
+                target.put_to_none(field)
 
         document = cls.registry.Attachment.Document.__table__
         query = select([getattr(document.c, field)
