@@ -61,6 +61,9 @@ class Document:
     def get_file(self):
         return self.to_dict(*self.get_file_fields())
 
+    def set_file(self, file_):
+        self.file = file_
+
     def get_previous_version(self):
         Doc = self.registry.Attachment.Document
         query = Doc.query()
@@ -154,6 +157,12 @@ class Latest(Attachment.Document, Mixin.ForbidDelete):
 
         return False
 
+    def has_file(self):
+        if self.file:
+            return True
+
+        return False
+
     @classmethod
     def before_update_orm_event(cls, mapper, connection, target):
         modified_fields = target.get_modified_fields()
@@ -222,7 +231,7 @@ class Latest(Attachment.Document, Mixin.ForbidDelete):
             delattr(target, 'new_history')
 
     def historize_a_copy(self):
-        if not self.file:
+        if not self.has_file():
             raise NoFileException(
                 "Can not archive %s, because the document have not got file"
             )
@@ -232,7 +241,7 @@ class Latest(Attachment.Document, Mixin.ForbidDelete):
         self.registry.flush()  # flush call the listen then do the archive
 
     def add_new_version(self):
-        if not self.file:
+        if not self.has_file():
             raise NoFileException(
                 "Can not archive %s, because the document have not got file")
 

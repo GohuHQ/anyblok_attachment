@@ -114,10 +114,10 @@ class Template:
         :param file_: bytes file
         :param data: serialized data
         """
-        if document.file:
+        if document.has_file():
             document.add_new_version()
 
-        document.file = file_
+        document.set_file(file_)
         document.file_added_at = datetime.now()
         document.filename = self.filename.format(
             doc=document, template=self, data=data,
@@ -150,7 +150,7 @@ class Template:
         if document.template is not self:
             return False
 
-        if not document.file:
+        if not document.has_file():
             return True
 
         if document.file_added_at < self.updated_at:
