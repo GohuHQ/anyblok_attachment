@@ -148,6 +148,12 @@ class Latest(Attachment.Document, Mixin.ForbidDelete):
         return ['uuid', 'version', 'creates_at',
                 'attachment_document_uuid', 'attachment_document_version']
 
+    def is_unmodified_file(self, modified_fields):
+        if 'file' not in modified_fields or self.file is None:
+            return True
+
+        return False
+
     @classmethod
     def before_update_orm_event(cls, mapper, connection, target):
         modified_fields = target.get_modified_fields()
@@ -188,7 +194,7 @@ class Latest(Attachment.Document, Mixin.ForbidDelete):
 
         if modified_fields == ['type']:
             pass  # do nothing on files
-        elif 'file' not in modified_fields or target.file is None:
+        elif target.is_unmodified_file(modified_fields):
             for field in target.get_file_fields():
                 setattr(target, field, None)
 

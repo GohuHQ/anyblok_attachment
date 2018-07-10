@@ -11,6 +11,11 @@
 CHANGELOG
 =========
 
+1.2.0
+-----
+
+* Allow to get another field to represent the file
+
 1.1.1 (2018-06-05)
 ------------------
 
