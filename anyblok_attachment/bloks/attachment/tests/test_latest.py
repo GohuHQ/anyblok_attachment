@@ -46,12 +46,12 @@ class TestLatest(BlokTestCase):
         file_ = urandom(100)
         document = self.registry.Attachment.Document.insert(file=file_)
         version = document.version
-        self.assertTrue(document.file)
+        self.assertTrue(document.has_file())
         document.historize_a_copy()
         self.assertNotEqual(document.version, version)
         self.assertIs(document.previous_version.next_version, document)
-        self.assertTrue(document.file)
-        self.assertTrue(document.previous_version.file)
+        self.assertTrue(document.has_file())
+        self.assertTrue(document.previous_version.has_file())
 
     def test_udpate_without_file(self):
         document = self.registry.Attachment.Document.insert()
@@ -65,13 +65,13 @@ class TestLatest(BlokTestCase):
         file_ = urandom(100)
         document = self.registry.Attachment.Document.insert(file=file_)
         version = document.version
-        self.assertTrue(document.file)
+        self.assertTrue(document.has_file())
         document.data = {'other': 'data'}
         self.registry.flush()
         self.assertNotEqual(document.version, version)
         self.assertIs(document.previous_version.next_version, document)
-        self.assertFalse(document.file)
-        self.assertTrue(document.previous_version.file)
+        self.assertFalse(document.has_file())
+        self.assertTrue(document.previous_version.has_file())
 
     def test_delete(self):
         document = self.registry.Attachment.Document.insert()
@@ -101,9 +101,9 @@ class TestLatest(BlokTestCase):
         file_ = urandom(100)
         document = self.registry.Attachment.Document.insert(file=file_)
         version = document.version
-        self.assertTrue(document.file)
+        self.assertTrue(document.has_file())
         document.add_new_version()
         self.assertNotEqual(document.version, version)
         self.assertIs(document.previous_version.next_version, document)
-        self.assertFalse(document.file)
-        self.assertTrue(document.previous_version.file)
+        self.assertFalse(document.has_file())
+        self.assertTrue(document.previous_version.has_file())

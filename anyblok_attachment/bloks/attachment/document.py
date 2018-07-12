@@ -112,6 +112,16 @@ class Document:
 
         return query
 
+    def has_file(self):
+        if self.file:
+            return True
+
+        return False
+
+    @classmethod
+    def filter_has_not_file(cls):
+        return cls.file == None  # noqa
+
 
 @register(Attachment.Document, tablename=Attachment.Document)
 class Latest(Attachment.Document, Mixin.ForbidDelete):
@@ -157,12 +167,6 @@ class Latest(Attachment.Document, Mixin.ForbidDelete):
 
         return False
 
-    def has_file(self):
-        if self.file:
-            return True
-
-        return False
-
     def put_to_none(self, field):
         setattr(self, field, None)
 
@@ -179,7 +183,7 @@ class Latest(Attachment.Document, Mixin.ForbidDelete):
 
         Q = cls.query().filter(cls.uuid == target.uuid)
         Q = Q.filter(cls.version == target.version)
-        Q = Q.filter(cls.file == None)  # noqa
+        Q = Q.filter(cls.filter_has_not_file())
         if Q.count():
             # No file in DB, then no archive is need
             return
@@ -210,17 +214,21 @@ class Latest(Attachment.Document, Mixin.ForbidDelete):
             for field in target.get_file_fields():
                 target.put_to_none(field)
 
-        document = cls.registry.Attachment.Document.__table__
-        query = select([getattr(document.c, field)
-                        for field in modified_fields])
-        query = query.where(document.c.uuid == target.uuid)
-        query = query.where(document.c.version == old_version)
-        res = cls.registry.session.connection().execute(query)
-
-        vals = res.fetchone()
-        new_vals.update({x: vals[x] for x in modified_fields})
+        new_vals.update(target.update_copied_value(
+            modified_fields, old_version))
         new_vals['type'] = 'history'
         target.new_history = new_vals
+
+    def update_copied_value(self, modified_fields, old_version):
+        document = self.registry.Attachment.Document.__table__
+        query = select([getattr(document.c, field)
+                        for field in modified_fields])
+        query = query.where(document.c.uuid == self.uuid)
+        query = query.where(document.c.version == old_version)
+        res = self.registry.session.connection().execute(query)
+
+        vals = res.fetchone()
+        return {x: vals[x] for x in modified_fields}
 
     @classmethod
     def after_update_orm_event(cls, mapper, connection, target):
