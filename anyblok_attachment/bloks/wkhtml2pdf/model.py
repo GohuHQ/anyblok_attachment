@@ -38,7 +38,7 @@ class WkHtml2Pdf:
     lowquality = Boolean(default=False)
     dpi = Integer()
     page_offset = Integer(nullable=False, default=0)
-    minimu_font_size = Integer()
+    minimum_font_size = Integer()
     margin_bottom = Integer(nullable=False, default=10)
     margin_left = Integer(nullable=False, default=10)
     margin_right = Integer(nullable=False, default=10)
@@ -90,7 +90,7 @@ class WkHtml2Pdf:
                        'margin_top', 'orientation', 'encoding',
                        'javascript_delay', 'load_error_handling',
                        'load_media_error_handling', 'copies', 'dpi',
-                       'minimu_font_size'):
+                       'minimum_font_size'):
             val = getattr(self, option)
             if val is not None:
                 options.append('--' + option.replace('_', '-'))
