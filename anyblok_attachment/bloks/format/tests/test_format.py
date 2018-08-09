@@ -12,6 +12,7 @@ class TestFormat(BlokTestCase):
 
     def test_simple_format(self):
         template = self.registry.Attachment.Template.Format.insert(
+            name="test",
             template_path='report-format#=#tests/format.tmpl',
             contenttype='text/html',
             model='Model.System.Blok',

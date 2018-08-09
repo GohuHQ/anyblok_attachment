@@ -18,6 +18,7 @@ class TestTemplate(DBTestCase):
         registry = self.init_registry_with_bloks(['test_report_1'], None)
         with self.assertRaises(TemplateException):
             registry.Attachment.Template.MyTemplate.insert(
+                name="test",
                 parser_model="",
                 template_path="report#=#common.py",
                 model="Model.System.Blok"
@@ -27,6 +28,7 @@ class TestTemplate(DBTestCase):
         registry = self.init_registry_with_bloks(['test_report_1'], None)
         with self.assertRaises(PathException):
             registry.Attachment.Template.MyTemplate.insert(
+                name="test",
                 template_path="",
                 model="Model.System.Blok"
             )
@@ -36,6 +38,7 @@ class TestTemplate(DBTestCase):
         registry = self.init_registry_with_bloks(['test_report_1'], None)
         registry.Attachment.Template.MyTemplate.file_ = file_
         template = registry.Attachment.Template.MyTemplate.insert(
+            name="test",
             template_path="report#=#common.py",
             filename='test',
             model="Model.System.Blok"
@@ -59,6 +62,7 @@ class TestTemplate(DBTestCase):
         registry = self.init_registry_with_bloks(['test_report_2'], None)
         registry.Attachment.Template.MyTemplate.file_ = file_
         template = registry.Attachment.Template.MyTemplate.insert(
+            name="test",
             template_path="report#=#common.py",
             filename='test',
             model="Model.System.Blok"
@@ -86,6 +90,7 @@ class TestTemplate(DBTestCase):
         wkhtml2pdf = registry.Attachment.WkHtml2Pdf.insert(
             label="Custom", page=page)
         template = registry.Attachment.Template.MyTemplate.insert(
+            name="test",
             template_path="report#=#common.py",
             filename='test',
             model="Model.System.Blok",
@@ -108,6 +113,7 @@ class TestTemplate(DBTestCase):
             label="Custom", page=page)
         wkhtml2pdf.refresh()
         template = registry.Attachment.Template.MyTemplate.insert(
+            name="test",
             template_path="report#=#common.py",
             filename='test',
             model="Model.System.Blok",
@@ -134,6 +140,7 @@ class TestTemplate(DBTestCase):
             label="Custom", page=page)
         wkhtml2pdf.refresh()
         template = registry.Attachment.Template.MyTemplate.insert(
+            name="test",
             template_path="report#=#common.py",
             filename='test',
             model="Model.System.Blok",

@@ -27,6 +27,7 @@ template file exemple::
 add the documment and create file::
 
     template = registry.Attachment.Template.Format.insert(
+        name="template_name"
         template_path='path/of/the/python.template',
         contenttype='text/html',
         filename='mypage.html')
