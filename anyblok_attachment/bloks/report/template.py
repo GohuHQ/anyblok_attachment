@@ -27,7 +27,7 @@ class Template:
     TYPE = 'invalid'
 
     uuid = UUID(primary_key=True, nullable=False, default=uuid1, binary=False)
-    name = String(nullable=True)
+    name = String(nullable=False)
 
     created_at = DateTime(nullable=False, default=datetime.now)
     updated_at = DateTime(nullable=False, default=datetime.now,
