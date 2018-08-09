@@ -19,6 +19,7 @@ class TestParser(BlokTestCase):
     def test_check_if_file_must_be_generated(self):
         Parser = self.registry.Attachment.Parser
         template = self.registry.Attachment.Template.insert(
+            name="test",
             template_path='report#=#tests/test_parser.py',
             model="Model.Attachment.Template")
         document = self.registry.Attachment.Document.insert(
