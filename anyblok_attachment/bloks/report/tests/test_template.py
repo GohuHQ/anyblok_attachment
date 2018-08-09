@@ -15,6 +15,7 @@ class TestTemplate(BlokTestCase):
 
     def test_without_render(self):
         template = self.registry.Attachment.Template.insert(
+            name="test",
             template_path='report#=#tests/test_parser.py',
             model="Model.Attachment.Template")
         with self.assertRaises(RenderException):
@@ -22,6 +23,7 @@ class TestTemplate(BlokTestCase):
 
     def test_check_if_file_must_be_generated_1(self):
         template = self.registry.Attachment.Template.insert(
+            name="test",
             template_path='report#=#tests/test_parser.py',
             model="Model.Attachment.Template")
         document = self.registry.Attachment.Document.insert(
@@ -30,6 +32,7 @@ class TestTemplate(BlokTestCase):
 
     def test_check_if_file_must_be_generated_2(self):
         template = self.registry.Attachment.Template.insert(
+            name="test",
             template_path='report#=#tests/test_parser.py',
             model="Model.Attachment.Template")
         document = self.registry.Attachment.Document.insert()
@@ -37,6 +40,7 @@ class TestTemplate(BlokTestCase):
 
     def test_update_document(self):
         template = self.registry.Attachment.Template.insert(
+            name="test",
             filename='test-{doc.uuid}-{doc.version}',
             template_path='report#=#tests/test_parser.py',
             model="Model.Attachment.Template")
@@ -52,12 +56,14 @@ class TestTemplate(BlokTestCase):
 
     def test_get_parser(self):
         template = self.registry.Attachment.Template.insert(
+            name="test",
             template_path='report#=#tests/test_parser.py',
             model="Model.Attachment.Template")
         self.assertIs(template.get_parser(), self.registry.Attachment.Parser)
 
     def test_get_template(self):
         template = self.registry.Attachment.Template.insert(
+            name="test",
             template_path='report#=#tests/template.tmpl',
             model="Model.Attachment.Template")
         self.assertEqual(template.get_template(), "template\n")
@@ -65,6 +71,7 @@ class TestTemplate(BlokTestCase):
     def test_without_parser(self):
         with self.assertRaises(TemplateException):
             self.registry.Attachment.Template.insert(
+                name="test",
                 template_path='report#=#tests/template.tmpl',
                 parser_model='',
                 model="Model.Attachment.Template")
@@ -72,5 +79,6 @@ class TestTemplate(BlokTestCase):
     def test_without_template(self):
         with self.assertRaises((TemplateException, PathException)):
             self.registry.Attachment.Template.insert(
+                name="test",
                 template_path='',
                 model="Model.Attachment.Template")
