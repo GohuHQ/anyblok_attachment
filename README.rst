@@ -24,7 +24,7 @@
     :target: https://doc.anyblok-attachment.anyblok.org/?badge=latest
 
 
-AnyBlok / Dramatiq
+AnyBlok attachment
 ==================
 
 Improve AnyBlok `AnyBlok <http://doc.anyblok.org>`_ to add attachment and report
