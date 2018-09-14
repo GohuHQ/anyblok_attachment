@@ -39,7 +39,7 @@ system.
 |                       |                   | add helper to generate a Document, but it is not a      |
 |                       |                   | templating engine.                                      |
 +-----------------------+-------------------+---------------------------------------------------------+
-| **format**            | **attachment**    | Simple templating engine, based on ``str.format(...)``  |
+| **report-format**     | **attachment**    | Simple templating engine, based on ``str.format(...)``  |
 |                       | **report**        |                                                         |
 +-----------------------+-------------------+---------------------------------------------------------+
 | **wkhtml2pdf**        | **attachment**    | Add Model add method to convert HTML 2 PDF.             |
