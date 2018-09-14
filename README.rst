@@ -27,7 +27,7 @@
 AnyBlok attachment
 ==================
 
-Improve AnyBlok `AnyBlok <http://doc.anyblok.org>`_ to add attachment and report
+Improve `AnyBlok <http://doc.anyblok.org>`_ to add attachment and report
 system.
 
 +-----------------------+-------------------+---------------------------------------------------------+
