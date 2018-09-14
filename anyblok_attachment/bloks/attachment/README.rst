@@ -1,6 +1,7 @@
 .. This file is a part of the AnyBlok / Attachment project
 ..
 ..    Copyright (C) 2017 Jean-Sebastien SUZANNE <jssuzanne@anybox.fr>
+..    Copyright (C) 2018 Jean-Sebastien SUZANNE <jssuzanne@anybox.fr>
 ..
 .. This Source Code Form is subject to the terms of the Mozilla Public License,
 .. v. 2.0. If a copy of the MPL was not distributed with this file,You can
@@ -9,17 +10,8 @@
 Memento
 ~~~~~~~
 
-The document historize the version::
-
-    doc = registry.Attachment.Document.insert(...)
-    assert doc.type == 'latest'
-    assert doc.previous_version is None
-
-    doc.data = {'other': 'data'}
-    assert doc.previous_version is not None
-    assert doc.previous_version.type == 'historized'
-
-You can get:
+This blok Store documents in a table. The documents are historized each modification 
+are saved. It is easy to get the latest or un historized version of one Document.
 
 * All document::
 
@@ -40,3 +32,13 @@ You can get:
 
     The historized version get the latest version of the document and a new version is 
     added to the document
+
+The document historize the version::
+
+    doc = registry.Attachment.Document.insert(...)
+    assert doc.type == 'latest'
+    assert doc.previous_version is None
+
+    doc.data = {'other': 'data'}
+    assert doc.previous_version is not None
+    assert doc.previous_version.type == 'historized'

@@ -30,6 +30,23 @@ AnyBlok attachment
 Improve AnyBlok `AnyBlok <http://doc.anyblok.org>`_ to add attachment and report
 system.
 
++-----------------------+-------------------+---------------------------------------------------------+
+| Blok                  | Dependancies      | Description                                             |
++=======================+===================+=========================================================+
+| **attachment**        |                   | Stock and historize Document                            |
++-----------------------+-------------------+---------------------------------------------------------+
+| **report**            | **attachment**    | Core of the reporting engine for AnyBlok. This blok     |
+|                       |                   | add helper to generate a Document, but it is not a      |
+|                       |                   | templating engine.                                      |
++-----------------------+-------------------+---------------------------------------------------------+
+| **format**            | **attachment**    | Simple templating engine, based on ``str.format(...)``  |
+|                       | **report**        |                                                         |
++-----------------------+-------------------+---------------------------------------------------------+
+| **wkhtml2pdf**        | **attachment**    | Add Model add method to convert HTML 2 PDF.             |
+|                       | **report**        |                                                         |
++-----------------------+---------------------------------------------------------+
+
+
 AnyBlok / Attachment is released under the terms of the `Mozilla Public License`.
 
 See the `latest documentation <http://doc.anyblok-attachment.anyblok.org/>`_
