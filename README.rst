@@ -31,7 +31,7 @@ Improve `AnyBlok <http://doc.anyblok.org>`_ to add attachment and report
 system.
 
 +-----------------------+-------------------+---------------------------------------------------------+
-| Blok                  | Dependancies      | Description                                             |
+| Blok                  | Dependencies      | Description                                             |
 +=======================+===================+=========================================================+
 | **attachment**        |                   | Stock and historize Document                            |
 +-----------------------+-------------------+---------------------------------------------------------+
@@ -42,8 +42,9 @@ system.
 | **report-format**     | **attachment**    | Simple templating engine, based on ``str.format(...)``  |
 |                       | **report**        |                                                         |
 +-----------------------+-------------------+---------------------------------------------------------+
-| **wkhtml2pdf**        | **attachment**    | Add Model add method to convert HTML 2 PDF.             |
-|                       | **report**        |                                                         |
+| **wkhtml2pdf**        | **attachment**    | Add models add method to convert HTML 2 PDF.            |
+|                       | **report**        | `Memento</anyblok_attachment/bloks/wkhtml2pdf>`_.       |
+|                       |                   |                                                         |
 +-----------------------+-------------------+---------------------------------------------------------+
 
 
